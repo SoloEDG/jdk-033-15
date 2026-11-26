@@ -20,4 +20,8 @@ export const course: Course = {
     { id: '潮音礁', center: { x: 540, y: 485 }, radius: 59 },
     { id: '东岸浅滩', center: { x: 943, y: 147 }, radius: 105 },
   ],
+  tides: [
+    // 横切 02→03 航段的潮纹带：流向偏南压向潮音礁一侧，潮音礁部分没入带中
+    { id: 't1', name: '潮纹带', center: { x: 600, y: 300 }, bearing: 100, width: 76, set: 160, knots: 2.8 },
+  ],
 }

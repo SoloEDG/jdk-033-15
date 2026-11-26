@@ -8,7 +8,7 @@ import { LogbookPanel } from '../features/logbook'
 import { clock } from '../shared/format'
 import { useRace } from './useRace'
 
-const { course, wind, sail, jury, logbook, status, focus, frame, trail, active, start, togglePause, end, locate } = useRace()
+const { course, wind, sail, jury, logbook, status, focus, tideFocus, frame, trail, active, start, togglePause, end, locate, clearFocus } = useRace()
 const { voyages, selected, cursor, notice, seek, open } = logbook
 const { mode } = wind
 const { events } = jury
@@ -34,13 +34,13 @@ const labels = { ready: '待出发', running: '竞速中', paused: '已暂停', 
             </template>
           </div>
         </div>
-        <CourseChart :course="course" :frame="frame" :trail="trail" :replay="Boolean(selected)" :focus="focus"/>
+        <CourseChart :course="course" :frame="frame" :trail="trail" :replay="Boolean(selected)" :focus="focus" :tide-focus="tideFocus" :events="selected?.events ?? events"/>
         <LogbookPanel :voyages="voyages" :selected="selected" :events="selected?.events ?? events" :cursor="cursor" :notice="notice" :locked="active"
-          @open="id => { focus = null; open(id) }" @close="selected = null; focus = null" @seek="time => { focus = null; seek(time) }" @focus="locate"/>
+          @open="id => { clearFocus(); open(id) }" @close="selected = null; clearFocus()" @seek="time => { clearFocus(); seek(time) }" @focus="locate"/>
       </div>
       <aside class="instruments" aria-label="比赛仪表">
         <WindPanel :wind="frame.wind" :mode="selected?.windMode ?? mode" :locked="active || Boolean(selected)" @mode="wind.set"/>
-        <SailPanel :boat="frame.boat" :disabled="status !== 'running' || Boolean(selected)" @steer="sail.steer" @sheet="sail.sheet"/>
+        <SailPanel :boat="frame.boat" :current="frame.current ?? null" :disabled="status !== 'running' || Boolean(selected)" @steer="sail.steer" @sheet="sail.sheet"/>
         <MarksPanel :gates="course.gates" :next-gate="frame.nextGate" :penalty="frame.penalty"/>
       </aside>
     </div>

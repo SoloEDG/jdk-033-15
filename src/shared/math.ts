@@ -1,5 +1,7 @@
 import type { Point } from './race'
 
+/** 图上 1 节航速 = 3.65 图单位/秒（船速与潮流共用同一比例） */
+export const KNOTS_TO_UNITS = 3.65
 export const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n))
 export const radians = (degrees: number) => degrees * Math.PI / 180
 export const normalize = (degrees: number) => ((degrees % 360) + 360) % 360

@@ -10,6 +10,7 @@ export function sampleAt(samples: Sample[], time: number): Sample | null {
   const discrete = fraction < 1 ? a : b
   return {
     ...discrete, time,
+    current: discrete.current ?? null,
     boat: {
       ...discrete.boat,
       position: pointAt(a.boat.position, b.boat.position, fraction),

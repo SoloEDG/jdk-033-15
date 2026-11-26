@@ -86,6 +86,11 @@ input[type=range] { width: 100%; margin: 5px 0 10px; accent-color: #39696a; }
 .event-list button:hover { background: #ffe598; }
 .event-list time, .event-list b { font: 11px var(--mono); }
 .event-list b { margin-left: auto; color: #893b27; }
+.event-list button[data-kind=tide] { color: #2f6f6a; }
+.event-list .tide-flag { font-style: normal; font-size: 10px; line-height: 1.5; background: #dcebe4; color: #2f6f6a; border-radius: 3px; padding: 0 4px; }
+.event-list .tide-flag + b { margin-left: 0; }
+.tide-reading { display: flex; align-items: center; gap: 5px; margin: -3px 0 9px; font-size: 11px; color: #2f6f6a; }
+.tide-reading.quiet { color: #97997f; }
 @media (max-width: 800px) {
   .shell { padding: 0 13px 20px; }
   .masthead { min-height: 70px; }

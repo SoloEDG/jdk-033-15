@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BookOpen, Crosshair, X } from 'lucide-vue-next'
+import { BookOpen, Crosshair, Waves, X } from 'lucide-vue-next'
 import { clock } from '../../../shared/format'
 import type { RaceEvent, Voyage } from '../../../shared/race'
 defineProps<{ voyages: Voyage[]; selected: Voyage | null; events: RaceEvent[]; cursor: number; notice: string; locked: boolean }>()
@@ -24,7 +24,7 @@ defineEmits<{ open: [id: string]; close: []; seek: [time: number]; focus: [event
     </div>
     <p v-if="notice" class="empty-note">{{ notice }}</p>
     <div v-if="events.length" class="event-list">
-      <button v-for="event in events" :key="event.id" type="button" :data-kind="event.kind" @click="$emit('focus', event)"><Crosshair :size="13"/><time>{{ clock(event.time) }}</time><span>{{ event.label }}</span><b v-if="event.penalty">+{{ event.penalty }} s</b></button>
+      <button v-for="event in events" :key="event.id" type="button" :data-kind="event.kind" @click="$emit('focus', event)"><component :is="event.kind === 'tide' ? Waves : Crosshair" :size="13"/><time>{{ clock(event.time) }}</time><span>{{ event.label }}</span><em v-if="event.tide" class="tide-flag" :title="`潮流改变判罚 · 交界于${event.tide.band}`">潮</em><b v-if="event.penalty">+{{ event.penalty }} s</b></button>
     </div>
     <p v-else class="empty-note">暂无航行事件</p>
   </section>
